@@ -5,8 +5,8 @@ import com.tedneward.scitter.*;
 
 public class JavaScitterTests
 {
-  public static final String testUser = "TedNeward";
-  public static final String testPassword = "s5z1nn2";
+  public static final String testUser = "";
+  public static final String testPassword = "";
   
   @Test public void getFriendsStatuses()
   {
