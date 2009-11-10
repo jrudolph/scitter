@@ -1,0 +1,64 @@
+<project name="scala-intro" default="test">
+
+  <property name="scala.home" location="C:/Prg/scala-2.7.3-final" />
+
+  <taskdef resource="scala/tools/ant/antlib.xml">
+    <classpath>
+      <pathelement location="${scala.home}/lib/scala-compiler.jar" />
+      <pathelement location="${scala.home}/lib/scala-library.jar" />
+    </classpath>
+  </taskdef>
+
+  <path id="project.class.path">
+    <fileset dir="lib">
+      <include name="**/*.jar"/>
+    </fileset>
+    <pathelement location="${scala.home}/lib/scala-library.jar" />
+  </path>
+  <path id="test.class.path">
+    <fileset dir="lib">
+      <include name="**/*.jar"/>
+    </fileset>
+    <pathelement location="${scala.home}/lib/scala-library.jar" />
+    <pathelement location="./classes" />
+  </path>
+
+  <target name="init">
+    <mkdir dir="classes" />
+  </target>
+  
+  <target name="build" depends="init">
+    <scalac srcdir="src" destdir="classes">
+      <classpath refid="project.class.path" />
+      <include name="scitter.scala" />
+      <include name="scitterTypes.scala" />
+    </scalac>
+  </target>
+  
+  <target name="run" depends="build">
+  </target>
+  
+  <target name="test" depends="build">
+    <javac srcdir="testsrc" destdir="classes">
+      <classpath refid="project.class.path" />
+      <include name="JavaScitterTests.java" />
+    </javac>
+    <scalac srcdir="testsrc" destdir="classes">
+      <classpath refid="project.class.path" />
+      <include name="scittertest.scala" />
+    </scalac>
+    <junit printsummary="yes" fork="no" haltonfailure="no">
+      <classpath refid="test.class.path" />
+      <formatter type="plain"/>
+      <test name="com.tedneward.scitter.test.ScitterTests"/>
+      <test name="com.tedneward.scitter.test.ExplorationTests"/>
+      <test name="com.tedneward.scitter.test.JavaScitterTests"/>
+    </junit>
+  </target>
+
+  <target name="clean">
+    <delete dir="classes" />
+    <delete file="TEST-*" /> 
+  </target>
+  
+</project>
