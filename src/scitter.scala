@@ -193,7 +193,7 @@ package com.tedneward.scitter
     def verifyCredentials : Boolean =
     {
       val (statusCode, statusBody) =
-        Scitter.execute("http://twitter.com/help/test.xml", username, password)
+        Scitter.execute("http://twitter.com/account/verify_credentials.xml", username, password)
 
       statusCode == 200
     }
